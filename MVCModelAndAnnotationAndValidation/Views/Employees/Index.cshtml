@@ -1,0 +1,99 @@
+﻿@model PagedList.IPagedList<MVCModelAndAnnotationAndValidation.Models.ViewModels.EmployeeViewModel>
+@using PagedList.Mvc
+@*@model IEnumerable<MVCModelAndAnnotationAndValidation.Models.ViewModels.EmployeeViewModel>*@
+@{
+    ViewBag.Title = "";
+ }
+
+
+<h3 class="bg-success">Employee Information</h3>
+<div class="container-fluid">
+    <div class="row">
+        <p>@Html.ActionLink("Create New Employee", "Create")</p>
+    </div>
+    <div class="row">
+        @using (Html.BeginForm("Index", "Employees", FormMethod.Get))
+        {
+        <p>
+            Search By : @Html.TextBox("SearchString")
+           <input type="submit" value="Search" class="btn btn-primary" />
+        </p>
+           
+        }
+    </div>
+    <div class="row">
+        <div class="container-fluid">
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="9">Employee List has been retrievied : @DateTime.Now.ToString()</td>
+                </tr>
+                <tr class="bg-info text-center">
+                    <th>Employee Id</th>
+                    <th>@Html.ActionLink("Employee Name","Index",new { SortOrder= ViewBag.SortNameParam })</th>
+                    <th>Email Address</th>
+                    <th>JoinDate</th>
+                    <th>Image</th>
+                    <th>Image Name</th>
+                    <th>Designation Id</th>
+                    <th>Designation Title</th>
+                    <th>Action</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.EmoployeeId)</td>
+                        <td>@Html.DisplayFor(modelItem => item.EmployeeName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td>
+                            @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.JoinDate))
+                        </td>
+                        <td>
+                            <img src="@Url.Content(item.ImageUrl)" alt="@item.ImageName" width="60" height="60" />
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.ImageName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DesignationId)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DesignationTitle)</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.EmoployeeId })|
+                            @Html.ActionLink("Delete", "Delete", new { id = item.EmoployeeId })|
+                            <a href="#" class="btn btn-success" name="details"
+                               onclick='DetailsRecord("+@item.EmoployeeId+")'>Details</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+            <br />
+            <h4 class="bg-warning">@Html.Action("GetEmployeeCount")</h4>            
+            <h4>
+                Page@(Model.PageCount<Model.PageNumber?0:Model.PageNumber) of @Model.PageCount
+                @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page, SortOrder = ViewBag.CurrrentSort, CurrentFilter = ViewBag.CurrentFilter }))
+            </h4>
+            <a class="btn btn-success" href="@Url.Action("ExpertReport")">Download Employee Report</a>
+            <div id="partialDiv">
+                @if (ViewBag.Details == "Show")
+                {
+                    @Html.Partial("_DetailsRecord", Model)
+                    ViewBag.Details = "";
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function DetailsRecord(employeeId) {
+        $.ajax({
+            url: "/Employees/Details?id=" + employeeId,
+            type: "GET",
+            data: "",
+            contentType:'application/json;charset=utf-8',
+            success: function (data) {
+                $('#partialDiv').show();
+                $('#partialDiv').html(data);
+            },
+            error: function () {
+                alert("Error Occured")
+            }
+        });
+    }
+</script>

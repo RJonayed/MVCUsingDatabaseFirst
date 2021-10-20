@@ -1,0 +1,30 @@
+﻿@model IEnumerable<MVCModelAndAnnotationAndValidation.Models.ViewModels.Designation>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AjaxFormExample</title>
+</head>
+<body>
+    <div> 
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Designation ID</th>
+                <th>Designation Title</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.DesignationId</td>
+                    <td>@item.DesignationTitle</td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

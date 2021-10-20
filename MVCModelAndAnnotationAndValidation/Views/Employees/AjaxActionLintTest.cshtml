@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "AjaxActionLintTest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 class="bg-primary">Employee Information</h2>
+<p>&copy; @DateTime.Now</p>
+@Ajax.ActionLink("All Employee", "allEmployee", new AjaxOptions()
+{
+    HttpMethod = "GET",
+    UpdateTargetId = "divEmployee",
+    InsertionMode = InsertionMode.Replace,
+    LoadingElementId = "divProgress",
+    OnBegin = "clear",
+    LoadingElementDuration = 1000
+
+})
+<span style="color:aquamarine">|</span>
+@Ajax.ActionLink("Top Three Employee", "Top3Employees", new AjaxOptions()
+{
+    HttpMethod = "GET",
+    UpdateTargetId = "divEmployee",
+    InsertionMode = InsertionMode.Replace,
+    LoadingElementId = "divProgress",
+    OnBegin = "clear",
+    LoadingElementDuration = 1000
+
+})
+<span style="color:aquamarine">|</span>
+@Ajax.ActionLink("Bootom Three Employee", "bottom3Employees", new AjaxOptions()
+{
+    HttpMethod = "GET",
+    UpdateTargetId = "divEmployee",
+    InsertionMode = InsertionMode.Replace,
+    LoadingElementId = "divProgress",
+    OnBegin = "clear",
+    LoadingElementDuration = 1000
+
+})
+
+
+<div id="divProgress" style="display:none">
+    <img src="~/App_Images/please-wait.gif" height="80" width="80" />
+</div>
+<div id="divEmployee">
+
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script>
+    function clear() {
+        $('#divEmployee').empty();
+    }
+</script>

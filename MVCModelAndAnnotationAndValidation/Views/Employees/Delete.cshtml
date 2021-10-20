@@ -1,0 +1,36 @@
+﻿@model MVCModelAndAnnotationAndValidation.Models.ViewModels.EmployeeViewModel
+
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="bg-danger">Delete Employee</h2>
+<div class="container-fluid">
+    <table class="table table-bordered">
+        <tr class="bg-warning">
+            <th>@Html.DisplayNameFor(model => model.EmoployeeId)</th>
+            <th>@Html.DisplayNameFor(model => model.EmployeeName)</th>
+            <th>@Html.DisplayNameFor(model => model.Email)</th>
+            <th>@Html.DisplayNameFor(model => model.JoinDate)</th>
+            <th>@Html.DisplayNameFor(model => model.DesignationTitle)</th>
+            <th>@Html.DisplayNameFor(model => model.ImageName)</th>
+        </tr>
+        <td>@Html.DisplayFor(model => model.EmoployeeId)</td>
+        <td>@Html.DisplayFor(model => model.EmployeeName)</td>
+        <td>@Html.DisplayFor(model => model.Email)</td>
+        <td>@Html.DisplayFor(model => model.JoinDate)</td>
+        <td>@Html.DisplayFor(model => model.DesignationTitle)</td>
+        <td><img src="@Url.Content(Model.ImageUrl)" alt="@Model.ImageName" width="70" height="70" /></td>
+    </table>
+</div>
+
+    @using (Html.BeginForm("Delete","Employees",FormMethod.Post))
+    {
+        @Html.AntiForgeryToken();
+        @Html.HiddenFor(model=>model.EmoployeeId)
+        <div class="form-actions">
+            <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Do You really want to Delete this Record')" />
+        </div>
+    }
+    @Html.ActionLink("Back to List","Index")

@@ -1,0 +1,39 @@
+﻿@model MVCModelAndAnnotationAndValidation.Models.ViewModels.EmployeeViewModel
+<h2>Partial View</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr class="bg-success">
+            <th>Employee Id</th>
+            <th>Employee Name</th>
+            <th>Email</th>
+            <th>Join Date</th>
+            <th>Designation Title</th>
+            <th>Image</th>
+        </tr>        
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayFor(model => model.EmoployeeId)</td>
+            <td>@Html.DisplayFor(model => model.EmployeeName)</td>
+            <td>@Html.DisplayFor(model => model.Email)</td>
+            <td>@Html.DisplayFor(model => model.JoinDate)</td>
+            <td>@Html.DisplayFor(model => model.DesignationTitle)</td>
+            <td><img src="@Url.Content(Model.ImageUrl)" alt="@Model.ImageName" width="80" height="80" /></td>
+        </tr>
+    </tbody>
+</table>
+@*<dl>
+    <dt>@Html.DisplayNameFor(model => model.EmoployeeId)</dt>
+    <dd>@Html.DisplayFor(model => model.EmoployeeId)</dd>
+    <dt>@Html.DisplayNameFor(model => model.EmployeeName)</dt>
+    <dd>@Html.DisplayFor(model => model.EmployeeName)</dd>
+    <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+    <dd>@Html.DisplayFor(model => model.Email)</dd>
+    <dt>@Html.DisplayNameFor(model => model.JoinDate)</dt>
+    <dd>@Html.DisplayFor(model => model.JoinDate)</dd>
+    <dt>@Html.DisplayNameFor(model => model.DesignationTitle)</dt>
+    <dd>@Html.DisplayFor(model => model.DesignationTitle)</dd>
+    <dt>@Html.DisplayNameFor(model => model.ImageUrl)</dt>
+    <dd><img src="@Url.Content(Model.ImageUrl)" alt="@Model.ImageName" width="80" height="80" /></dd>
+</dl>*@

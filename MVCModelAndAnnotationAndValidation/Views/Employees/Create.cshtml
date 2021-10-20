@@ -1,0 +1,94 @@
+﻿@model MVCModelAndAnnotationAndValidation.Models.ViewModels.EmployeeViewModel
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "Employees", FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+<div>
+    <h3>Create Employee</h3>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="from-group">
+        @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EmployeeName, "Please Select Name",
+             new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="from-group">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Email, "Select Email",
+           new { htmlAttributes = new { @class = "text-danger" } })
+        </div>
+    </div>
+    <div class="from-group">
+        @Html.LabelFor(model => model.JoinDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.JoinDate, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+            @Html.ValidationMessageFor(model => model.JoinDate, "Select join date",
+           new { htmlAttributes = new { @class = "text-danger" } })
+        </div>
+    </div>
+    <div class="from-group">
+        @Html.LabelFor(model => model.ImageUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+
+            <img src="~/App_Images/imges.jpg" height="80" width="80" class="change_Edit" />
+            <input type="file" id="imageChange1" name="ImageFile" required class="form-control imageChange" />
+
+        </div>
+    </div>
+    <div class="from-group">
+        @Html.LabelFor(model => model.DesignationId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.DesignationId,
+           new SelectList(ViewBag.Designations, "DesignationId", "DesignationTitle"), "Select Designation")
+            @Html.ValidationMessageFor(model => model.DesignationId, "",
+           new { htmlAttributes = new { @class = "text-danger" } })
+        </div>
+    </div>
+    <div class="from-group">
+        <input type="submit" value="Create" class="btn btn-primary btn-sm" onclick="SaveEmployee" />
+    </div>
+</div>
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $(function () {
+        $('.imageChange').change(function () {
+            var input = this;
+            if (input.files) {
+                var rdr = new FileReader();
+                rdr.onload = function (e) {
+                    $('.change_Edit').attr('src', e.target.result);
+                }
+                rdr.readAsDataURL(input.files[0]);
+            }
+
+        })
+    })
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

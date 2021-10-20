@@ -1,0 +1,28 @@
+﻿@model MVCModelAndAnnotationAndValidation.Models.ViewModels.Designation
+@{
+    ViewBag.Title = "CreateDesignationAjax";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<h2>Ajax Example</h2>
+<div id="divAjax1">
+    @using (Ajax.BeginForm("AjaxFormExample", "Designation",new AjaxOptions {UpdateTargetId= "divAjax" ,HttpMethod="POST",Confirm="Are You Sure to Save this Data?"}))
+    {
+        @Html.AntiForgeryToken()
+        <table class="table table-bordered table-striped">
+            <tr>
+                <td>@Html.DisplayNameFor(model=>model.DesignationId)</td>
+                <td>@Html.EditorFor(model=>model.DesignationTitle)</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Save" name="btnSave" class="btn btn-success" />
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+<div id="divAjax">
+
+</div>
